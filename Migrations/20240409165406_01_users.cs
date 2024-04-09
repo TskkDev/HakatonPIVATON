@@ -34,13 +34,12 @@ namespace HakatonPIVATON.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
                     IsCompany = table.Column<bool>(type: "boolean", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: true),
@@ -62,7 +61,7 @@ namespace HakatonPIVATON.Migrations
                 name: "Good",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Pic = table.Column<byte[]>(type: "bytea", nullable: false),
@@ -79,28 +78,13 @@ namespace HakatonPIVATON.Migrations
                 name: "Locality",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locality", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Route",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstPointId = table.Column<int>(type: "integer", nullable: false),
-                    SecondPointId = table.Column<int>(type: "integer", nullable: false),
-                    Distance = table.Column<decimal>(type: "numeric", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Route", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,49 +194,21 @@ namespace HakatonPIVATON.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IsSale = table.Column<bool>(type: "boolean", nullable: false),
-                    DeliveryRate = table.Column<decimal>(type: "numeric", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    UserId1 = table.Column<long>(type: "bigint", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    StartPointId = table.Column<int>(type: "integer", nullable: false),
-                    EndPointId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Order_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UsersGoods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    UserId1 = table.Column<long>(type: "bigint", nullable: false),
-                    GoodId = table.Column<int>(type: "integer", nullable: false),
-                    Remainder = table.Column<int>(type: "integer", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    GoodId = table.Column<long>(type: "bigint", nullable: false),
+                    Remainder = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UsersGoods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UsersGoods_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_UsersGoods_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -268,19 +224,18 @@ namespace HakatonPIVATON.Migrations
                 name: "Point",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    UserId1 = table.Column<long>(type: "bigint", nullable: false),
-                    LocalityId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    LocalityId = table.Column<long>(type: "bigint", nullable: false),
                     IsSortCenter = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Point", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Point_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Point_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -293,14 +248,67 @@ namespace HakatonPIVATON.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsSale = table.Column<bool>(type: "boolean", nullable: false),
+                    DeliveryRate = table.Column<decimal>(type: "numeric", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    StartPointId = table.Column<long>(type: "bigint", nullable: false),
+                    EndPointId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Point_StartPointId",
+                        column: x => x.StartPointId,
+                        principalTable: "Point",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Route",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstPointId = table.Column<long>(type: "bigint", nullable: false),
+                    SecondPointId = table.Column<long>(type: "bigint", nullable: false),
+                    Distance = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Route", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Route_Point_FirstPointId",
+                        column: x => x.FirstPointId,
+                        principalTable: "Point",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OdersGoods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
-                    GoodId = table.Column<int>(type: "integer", nullable: false),
-                    CountGoods = table.Column<int>(type: "integer", nullable: false)
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    GoodId = table.Column<long>(type: "bigint", nullable: false),
+                    CountGoods = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,10 +331,10 @@ namespace HakatonPIVATON.Migrations
                 name: "OrdersLocalities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
-                    LocalityId = table.Column<int>(type: "integer", nullable: false)
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    LocalityId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -393,9 +401,14 @@ namespace HakatonPIVATON.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserId1",
+                name: "IX_Order_StartPointId",
                 table: "Order",
-                column: "UserId1");
+                column: "StartPointId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_UserId",
+                table: "Order",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdersLocalities_LocalityId",
@@ -413,9 +426,14 @@ namespace HakatonPIVATON.Migrations
                 column: "LocalityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Point_UserId1",
+                name: "IX_Point_UserId",
                 table: "Point",
-                column: "UserId1");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Route_FirstPointId",
+                table: "Route",
+                column: "FirstPointId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsersGoods_GoodId",
@@ -423,9 +441,9 @@ namespace HakatonPIVATON.Migrations
                 column: "GoodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersGoods_UserId1",
+                name: "IX_UsersGoods_UserId",
                 table: "UsersGoods",
-                column: "UserId1");
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -453,9 +471,6 @@ namespace HakatonPIVATON.Migrations
                 name: "OrdersLocalities");
 
             migrationBuilder.DropTable(
-                name: "Point");
-
-            migrationBuilder.DropTable(
                 name: "Route");
 
             migrationBuilder.DropTable(
@@ -468,13 +483,16 @@ namespace HakatonPIVATON.Migrations
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Locality");
-
-            migrationBuilder.DropTable(
                 name: "Good");
 
             migrationBuilder.DropTable(
+                name: "Point");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Locality");
         }
     }
 }

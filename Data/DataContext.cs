@@ -13,6 +13,7 @@ namespace HakatonPIVATON.Entity
         {
             Database.Migrate();
         }
+
         public DbSet<Good> Good { get; set; } = null!;
         public DbSet<Locality> Locality { get; set; } = null!;
         public DbSet<OdersGoods> OdersGoods { get; set; } = null!;
@@ -22,5 +23,14 @@ namespace HakatonPIVATON.Entity
         public DbSet<Date.Route> Route { get; set; } = null!;
         public DbSet<User> User { get; set; } = null!;
         public DbSet<UsersGoods> UsersGoods { get; set; } = null!;
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Point>().HasMany(point => point.Order).WithOne().HasForeignKey(con => con.EndPointId);
+            modelBuilder.Entity<Point>().HasMany(point => point.Order).WithOne().HasForeignKey(con => con.StartPointId);
+
+            modelBuilder.Entity<Point>().HasMany(point => point.Route).WithOne().HasForeignKey(con => con.SecondPointId);
+            modelBuilder.Entity<Point>().HasMany(point => point.Route).WithOne().HasForeignKey(con => con.FirstPointId);
+            base.OnModelCreating(modelBuilder);
+        }
     }
-}
+    }

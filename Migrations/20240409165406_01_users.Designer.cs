@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HakatonPIVATON.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240406133924_02_users")]
-    partial class _02_users
+    [Migration("20240409165406_01_users")]
+    partial class _01_users
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Good", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -58,11 +58,11 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Locality", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -75,20 +75,20 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.OdersGoods", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("CountGoods")
-                        .HasColumnType("integer");
+                    b.Property<long>("CountGoods")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("GoodId")
-                        .HasColumnType("integer");
+                    b.Property<long>("GoodId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -101,11 +101,11 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<decimal>("DeliveryRate")
                         .HasColumnType("numeric");
@@ -117,8 +117,8 @@ namespace HakatonPIVATON.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("EndPointId")
-                        .HasColumnType("integer");
+                    b.Property<long>("EndPointId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsSale")
                         .HasColumnType("boolean");
@@ -126,35 +126,34 @@ namespace HakatonPIVATON.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("StartPointId")
-                        .HasColumnType("integer");
+                    b.Property<long>("StartPointId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("UserId1")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("StartPointId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Order");
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.OrdersLocalities", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("LocalityId")
-                        .HasColumnType("integer");
+                    b.Property<long>("LocalityId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -167,51 +166,50 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Point", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<bool>("IsSortCenter")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("LocalityId")
-                        .HasColumnType("integer");
+                    b.Property<long>("LocalityId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("UserId1")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LocalityId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Point");
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Route", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<decimal>("Distance")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("FirstPointId")
-                        .HasColumnType("integer");
+                    b.Property<long>("FirstPointId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("SecondPointId")
-                        .HasColumnType("integer");
+                    b.Property<long>("SecondPointId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FirstPointId");
 
                     b.ToTable("Route");
                 });
@@ -298,29 +296,26 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.UsersGoods", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("GoodId")
-                        .HasColumnType("integer");
+                    b.Property<long>("GoodId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("Remainder")
-                        .HasColumnType("integer");
+                    b.Property<long>("Remainder")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("UserId1")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GoodId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UsersGoods");
                 });
@@ -478,9 +473,15 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Order", b =>
                 {
+                    b.HasOne("HakatonPIVATON.Entity.Date.Point", null)
+                        .WithMany("Order")
+                        .HasForeignKey("StartPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HakatonPIVATON.Entity.Date.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -516,13 +517,22 @@ namespace HakatonPIVATON.Migrations
 
                     b.HasOne("HakatonPIVATON.Entity.Date.User", "User")
                         .WithMany("Points")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Locality");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HakatonPIVATON.Entity.Date.Route", b =>
+                {
+                    b.HasOne("HakatonPIVATON.Entity.Date.Point", null)
+                        .WithMany("Route")
+                        .HasForeignKey("FirstPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.UsersGoods", b =>
@@ -535,7 +545,7 @@ namespace HakatonPIVATON.Migrations
 
                     b.HasOne("HakatonPIVATON.Entity.Date.User", "User")
                         .WithMany("UsersGoods")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -614,6 +624,13 @@ namespace HakatonPIVATON.Migrations
                     b.Navigation("OdersGoods");
 
                     b.Navigation("OrderLocalities");
+                });
+
+            modelBuilder.Entity("HakatonPIVATON.Entity.Date.Point", b =>
+                {
+                    b.Navigation("Order");
+
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.User", b =>

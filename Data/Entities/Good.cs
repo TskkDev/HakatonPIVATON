@@ -2,7 +2,7 @@
 {
     public partial class Good
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; } = null!;
         public byte[] Pic { get; set; } = null!;
         public decimal Price { get; set; }
