@@ -3,6 +3,7 @@ using System;
 using HakatonPIVATON.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HakatonPIVATON.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240409181631_05_users")]
+    partial class _05_users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,13 +128,10 @@ namespace HakatonPIVATON.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("LocalityId")
+                    b.Property<long>("LocalityId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PointId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("StatusId")
@@ -146,8 +146,6 @@ namespace HakatonPIVATON.Migrations
                     b.HasIndex("LocalityId");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("PointId");
 
                     b.HasIndex("StatusId");
 
@@ -551,19 +549,15 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.HistoryStatuses", b =>
                 {
-                    b.HasOne("HakatonPIVATON.Entity.Date.Locality", null)
+                    b.HasOne("HakatonPIVATON.Entity.Date.Locality", "Locality")
                         .WithMany("OrderLocalities")
-                        .HasForeignKey("LocalityId");
+                        .HasForeignKey("LocalityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HakatonPIVATON.Entity.Date.Order", "Order")
                         .WithMany("OrderLocalities")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HakatonPIVATON.Entity.Date.Point", "Point")
-                        .WithMany()
-                        .HasForeignKey("PointId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -573,9 +567,9 @@ namespace HakatonPIVATON.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("Locality");
 
-                    b.Navigation("Point");
+                    b.Navigation("Order");
 
                     b.Navigation("Status");
                 });

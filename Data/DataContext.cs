@@ -18,7 +18,7 @@ namespace HakatonPIVATON.Entity
         public DbSet<Locality> Locality { get; set; } = null!;
         public DbSet<OdersGoods> OdersGoods { get; set; } = null!;
         public DbSet<Order> Order { get; set; } = null!;
-        public DbSet<OrdersLocalities> OrdersLocalities { get; set; } = null!;
+        public DbSet<HistoryStatuses> OrdersLocalities { get; set; } = null!;
         public DbSet<Point> Point { get; set; } = null!;
         public DbSet<Date.Route> Route { get; set; } = null!;
         public DbSet<User> User { get; set; } = null!;

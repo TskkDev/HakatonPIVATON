@@ -8,5 +8,6 @@
         public decimal Price { get; set; }
         public double Weigh { get; set; }
         public string Description { get; set; } = null!;
+        public long Remainder { get; set; }
     }
 }

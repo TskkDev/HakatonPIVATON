@@ -7,7 +7,7 @@ namespace HakatonPIVATON.Data.Entities
         public Status() { }
         public long Id { get; set; }
         public string Name { get; set; } = null!;
-        public virtual ICollection<OrdersLocalities> OrdersLocalities { get; set; } = new List<OrdersLocalities>();
+        public virtual ICollection<HistoryStatuses> OrdersLocalities { get; set; } = new List<HistoryStatuses>();
 
     }
 }

@@ -14,7 +14,7 @@ namespace HakatonPIVATON.Entity.Date
         public DateTime? EndDate { get; set; }
         public long StartPointId { get; set; }
         public long EndPointId { get; set; }
-        public ICollection<OrdersLocalities> OrderLocalities { get; set; } = new List<OrdersLocalities>();
+        public ICollection<HistoryStatuses> HistoryStatuses { get; set; } = new List<HistoryStatuses>();
         public ICollection<OdersGoods> OdersGoods { get; set; } = new List<OdersGoods>();
 
     }

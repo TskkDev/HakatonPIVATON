@@ -17,6 +17,8 @@ namespace HakatonPIVATON.Entity.Date
         public bool IsSortCenter { get; set; }
         public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Route> Route { get; set; }
+        public virtual ICollection<HistoryStatuses> HistoryStatuses { get; set; } = new List<HistoryStatuses>();
+
 
     }
 }
