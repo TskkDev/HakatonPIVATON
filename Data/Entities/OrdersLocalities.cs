@@ -11,7 +11,7 @@ namespace HakatonPIVATON.Entity.Date
         public long LocalityId { get; set; }
         public Locality Locality { get; set; } = null!;
         public long StatusId { get; set; }
-        public Status Status { get; set; } = null!;
+        public StatusResponse Status { get; set; } = null!;
         public string SubStatus { get; set; } = null!;
 
     }
