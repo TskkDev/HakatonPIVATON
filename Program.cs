@@ -79,7 +79,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-
+// builder.WebHost.UseUrls("http://*:7209");
 var app = builder.Build();
 
 app.UseSwagger();
