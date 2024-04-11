@@ -9,8 +9,10 @@
         public UserInfoResponse User { get; set; } = null!;
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public PointsResponse StartPoint { get; set; } = null!;
-        public PointsResponse EndPoint { get; set; } = null!;
+        public long StartPointId { get; set; }
+        public long EndPointId { get; set; }
+        public PointsResponse? StartPoint { get; set; }
+        public PointsResponse? EndPoint { get; set; }
         public List<HistrotyStatusResponse> HistrotyStatus { get; set; } = new List<HistrotyStatusResponse>();
         public List<GoodResponse> Goods { get; set; } = new List<GoodResponse>();
     }

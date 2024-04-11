@@ -3,8 +3,9 @@
     public class RoutesResponse
     {
         public long Id { get; set; }
-        public PointsResponse FirstPoint { get; set; } = null!;
-        public PointsResponse SecondPoint { get; set; } = null!;
+        public long FirstPointId { get; set; }
+        public long SecondPointId { get; set; }
         public decimal Distance { get; set; }
+        public decimal Price { get; set; }
     }
 }

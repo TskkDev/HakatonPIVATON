@@ -67,6 +67,7 @@ namespace HakatonPIVATON.Controllers
             {
                 Username = user.UserName!,
                 Email = user.Email!,
+                IsCompany = user.IsCompany,
                 Token = accessToken,
                 RefreshToken = user.RefreshToken
             });

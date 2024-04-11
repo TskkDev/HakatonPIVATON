@@ -3,6 +3,7 @@ using System;
 using HakatonPIVATON.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HakatonPIVATON.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240411184222_14_users")]
+    partial class _14_users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,10 +248,7 @@ namespace HakatonPIVATON.Migrations
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Route", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<decimal>("Distance")
                         .HasColumnType("numeric");
@@ -265,8 +265,6 @@ namespace HakatonPIVATON.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FirstPointId");
-
-                    b.HasIndex("SecondPointId");
 
                     b.ToTable("Route");
                 });
@@ -622,7 +620,7 @@ namespace HakatonPIVATON.Migrations
 
                     b.HasOne("HakatonPIVATON.Entity.Date.Point", "SecondPoint")
                         .WithMany("SecondPoint")
-                        .HasForeignKey("SecondPointId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

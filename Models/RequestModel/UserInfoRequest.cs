@@ -2,7 +2,8 @@
 {
     public class UserInfoRequest
     {
-        public string FIO { get; set; } = null!;
+        public string? INN { get; set; }
+        public string? FIO { get; set; }
         public DateTime BirthDate { get; set; }
     }
 }

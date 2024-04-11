@@ -4,8 +4,8 @@
     {
         public long Id { get; set; }
         public string Name { get; set; } = null!;
-        public UserInfoResponse? UserInfo { get; set; }
-        public CompanyInfoResponse? CompanyInfo { get; set; }
+        public bool IsCompany { get; set; }
+        public List<UserInfoResponse> UserInfo { get; set; } = new List<UserInfoResponse>();
         public List<GoodResponse> Goods { get; set; } = new List<GoodResponse>();
         public List<OrderResponse> Order { get; set; } = new List<OrderResponse>();
     }

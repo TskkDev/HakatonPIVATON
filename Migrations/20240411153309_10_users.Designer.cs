@@ -3,6 +3,7 @@ using System;
 using HakatonPIVATON.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HakatonPIVATON.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240411153309_10_users")]
+    partial class _10_users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace HakatonPIVATON.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("EndPointID")
+                    b.Property<long>("EndPointId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsSale")
@@ -199,7 +202,7 @@ namespace HakatonPIVATON.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("StartPointID")
+                    b.Property<long>("StartPointId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -207,9 +210,7 @@ namespace HakatonPIVATON.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EndPointID");
-
-                    b.HasIndex("StartPointID");
+                    b.HasIndex("StartPointId");
 
                     b.HasIndex("UserId");
 
@@ -256,17 +257,12 @@ namespace HakatonPIVATON.Migrations
                     b.Property<long>("FirstPointId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
                     b.Property<long>("SecondPointId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FirstPointId");
-
-                    b.HasIndex("SecondPointId");
 
                     b.ToTable("Route");
                 });
@@ -568,15 +564,9 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Order", b =>
                 {
-                    b.HasOne("HakatonPIVATON.Entity.Date.Point", "EndPoint")
-                        .WithMany("EndPoint")
-                        .HasForeignKey("EndPointID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HakatonPIVATON.Entity.Date.Point", "StartPoint")
-                        .WithMany("StartPoint")
-                        .HasForeignKey("StartPointID")
+                    b.HasOne("HakatonPIVATON.Entity.Date.Point", null)
+                        .WithMany("Order")
+                        .HasForeignKey("StartPointId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -585,10 +575,6 @@ namespace HakatonPIVATON.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("EndPoint");
-
-                    b.Navigation("StartPoint");
 
                     b.Navigation("User");
                 });
@@ -614,21 +600,11 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Route", b =>
                 {
-                    b.HasOne("HakatonPIVATON.Entity.Date.Point", "FirstPoint")
-                        .WithMany("FirstPoint")
+                    b.HasOne("HakatonPIVATON.Entity.Date.Point", null)
+                        .WithMany("Route")
                         .HasForeignKey("FirstPointId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("HakatonPIVATON.Entity.Date.Point", "SecondPoint")
-                        .WithMany("SecondPoint")
-                        .HasForeignKey("SecondPointId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FirstPoint");
-
-                    b.Navigation("SecondPoint");
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.UsersGoods", b =>
@@ -727,15 +703,11 @@ namespace HakatonPIVATON.Migrations
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.Point", b =>
                 {
-                    b.Navigation("EndPoint");
-
-                    b.Navigation("FirstPoint");
-
                     b.Navigation("HistoryStatuses");
 
-                    b.Navigation("SecondPoint");
+                    b.Navigation("Order");
 
-                    b.Navigation("StartPoint");
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("HakatonPIVATON.Entity.Date.User", b =>

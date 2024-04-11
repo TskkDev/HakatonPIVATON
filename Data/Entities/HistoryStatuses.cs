@@ -12,7 +12,7 @@ namespace HakatonPIVATON.Entity.Date
         public long PointId { get; set; }
         public Point Point { get; set; } = null!;
         public long StatusId { get; set; }
-        public StatusResponse Status { get; set; } = null!;
+        public Status Status { get; set; } = null!;
         public string SubStatus { get; set; } = null!;
 
     }
