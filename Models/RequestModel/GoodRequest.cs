@@ -1,8 +1,7 @@
-﻿namespace HakatonPIVATON.Models.RespnseModel
+﻿namespace HakatonPIVATON.Models.RequestModel
 {
-    public class GoodResponse
+    public class GoodRequest
     {
-        public long Id { get; set; }
         public string Name { get; set; } = null!;
         public byte[] Pic { get; set; } = null!;
         public decimal Price { get; set; }

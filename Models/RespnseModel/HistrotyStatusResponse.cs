@@ -1,4 +1,5 @@
 ﻿using HakatonPIVATON.Data.Entities;
+using HakatonPIVATON.Models.RequestModel;
 
 namespace HakatonPIVATON.Models.RespnseModel
 {
